@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "my_fir.h": "c",
+        "utility.h": "c",
+        "stdint.h": "c"
+    }
+}
