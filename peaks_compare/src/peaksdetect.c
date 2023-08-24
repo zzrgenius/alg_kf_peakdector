@@ -767,6 +767,7 @@ int main(void)
 #endif
 	FilterTypeDef avg_filter;
 	Moving_Average_Init(&avg_filter);
+	gettimeofday(&begin, 0);
 
 	for (int i = 0; i < len; i++)
 	{
@@ -794,6 +795,10 @@ int main(void)
 			*fp_data++ = fir_data - lp_data;
 		}
 	}
+		gettimeofday(&end, 0);
+	microseconds = end.tv_usec - begin.tv_usec;
+	printf("filter %d-elapsed %ld us\r\n", __LINE__, microseconds);
+
 	int16_t *p_xdata = malloc(len * sizeof(int16_t));
 	for (int i = 0; i < len; i++)
 	{
@@ -937,7 +942,7 @@ int main(void)
 	fclose(pFile);
 
 #endif
-#if 1
+#if 0
 	int *p_index = malloc(len * sizeof(int));
 	memset(p_index, 0, len * sizeof(int));
 	int len_index = 0;
