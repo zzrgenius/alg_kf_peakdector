@@ -17,5 +17,5 @@ typedef struct{
 /* Function prototypes -------------------------------------------------------*/
 void Moving_Average_Init(FilterTypeDef* filter_struct);
 uint16_t Moving_Average_Compute(uint16_t raw_data, FilterTypeDef* filter_struct);
-
+int smoth(int *x,int n,int *y); //int smoth(double *x,int n,double *y);
 #endif

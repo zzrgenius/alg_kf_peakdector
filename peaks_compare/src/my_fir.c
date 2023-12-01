@@ -1,10 +1,19 @@
 
 #include "my_fir.h"
-static const int16_t coeffs[12] = {
-    210, 254, 385, 592,
-    861, 1170, 1498, 1819,
-    2111, 2351, 2522, 2611};
-
+// //fs 500k hamming 23orders 1k low
+// static const int16_t coeffs[12] = {
+//     210, 254, 385, 592,
+//     861, 1170, 1498, 1819,
+//     2111, 2351, 2522, 2611};
+//fs 250k hamming 23orders 1k low
+// static const int16_t coeffs[12] = { 
+    
+//       207,    252,    382,    589,    858,   1168,   1497,   1820,   2113,
+//      2355,   2527,   2616
+// };
+static const int16_t coeffs[12] ={
+      210,    254,    385,    592,    861,   1170,   1498,   1819,   2111,
+     2351,   2522,   2610};
 int32_t mul16(register int16_t x, register int16_t y)
 {
 

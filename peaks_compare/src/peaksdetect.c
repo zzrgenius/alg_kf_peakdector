@@ -10,7 +10,7 @@
 #include "kalmanfilter.h"
 #define EXTREMA_TEST 1
 #define FIR_FILTER_ENABLE 1
-extern kalman_filter_data_s kalman_data ;
+extern kalman_filter_data_s kalman_data;
 void my_find_extrema(int16_t const *restrict x, size_t N, int32_t *restrict maxx, int16_t *restrict maxy, int32_t *nmax)
 {
 	// Set the number of extrema and zero crossings to zero initially
@@ -127,7 +127,7 @@ void my_AMPD(int16_t const *restrict data, int sizeN, int *index, int *len_index
 			if ((data[i] > data[i - k]) && (data[i] > data[i + k]))
 				row_sum -= 1;
 		}
-		// *(arr_rowsum + k - 1) = row_sum; // 
+		// *(arr_rowsum + k - 1) = row_sum; //
 		arr_rowsum[k - 1] = row_sum;
 	}
 	// for (int i = 0; i < sizeN/2; i++)
@@ -768,42 +768,36 @@ int main(void)
 	FilterTypeDef avg_filter;
 	Moving_Average_Init(&avg_filter);
 	gettimeofday(&begin, 0);
+	smoth(raw_data, len, fp_data);
 
-	for (int i = 0; i < len; i++)
-	{
-		//	fir_data = Moving_Average_Compute(raw_data[i],&avg_filter);
+	// 	for (int i = 0; i < len; i++)
+	// 	{
+	// 		//	fir_data = Moving_Average_Compute(raw_data[i],&avg_filter);
+	// 		//fir_data = fir_filter(raw_data[i], &sig_filter);		fir_data = (int)KalmanFilterExample(fir_data, &kalman_data);
+	// 		// fir_data = KalmanFilter(&k_info, raw_data[i]);
 
-		fir_data = fir_filter(raw_data[i], &sig_filter);
-		fir_data = (int)KalmanFilterExample(fir_data, &kalman_data);
-		// fir_data = KalmanFilter(&k_info, raw_data[i]);
+	// 		 fir_data =	(int)KalmanFilterExample(raw_data[i], &kalman_data);  fir_data = fir_filter(fir_data, &sig_filter);
 
-		// fir_data =	(int)KalmanFilterExample(raw_data[i], &kalman_data);  fir_data = fir_filter(fir_data, &sig_filter);
+	// #if (USE_IIR_FILTER_TYPE == 0)
 
-#if (USE_IIR_FILTER_TYPE == 0)
-
-		lp_data = 0;
-// lp_data = dc_estimator(&ir_2nd_dc_register, fir_data);
-#else
-		lp_data = 0;
-#endif
-		if ((fir_data - lp_data) < 0)
-		{
-			*fp_data++ = 0;
-		}
-		else
-		{
-			*fp_data++ = fir_data - lp_data;
-		}
-	}
-		gettimeofday(&end, 0);
+	// 		lp_data = 0;
+	// // lp_data = dc_estimator(&ir_2nd_dc_register, fir_data);
+	// #else
+	// 		lp_data = 0;
+	// #endif
+	// 		if ((fir_data - lp_data) < 0)
+	// 		{
+	// 			*fp_data++ = 0;
+	// 		}
+	// 		else
+	// 		{
+	// 			*fp_data++ = fir_data - lp_data;
+	// 		}
+	// 	}
+	gettimeofday(&end, 0);
 	microseconds = end.tv_usec - begin.tv_usec;
 	printf("filter %d-elapsed %ld us\r\n", __LINE__, microseconds);
 
-	int16_t *p_xdata = malloc(len * sizeof(int16_t));
-	for (int i = 0; i < len; i++)
-	{
-		p_xdata[i] = (int16_t)(filter_data[i]);
-	}
 	log_info("write filtered data to file");
 	pFile = fopen("filter_data.txt", "wb");
 	fp_data = filter_data;
@@ -816,6 +810,8 @@ int main(void)
 	fclose(pFile);
 
 #if (EXTREMA_TEST)
+	int16_t *p_xdata = malloc(len * sizeof(int16_t));
+
 	for (int i = 0; i < len; i++)
 	{
 		p_xdata[i] = (int16_t)(raw_data[i]);

@@ -13,14 +13,36 @@ kalman_filter_data_s kalman_data =
 		{1.0, 0.0},
 		/* Observation noise: R covariance matrix 1x1 */
 		/* float R_matrix; */
-		500,
+		200,
 		/* P plus current covariance matrix 2x2: estimate error */
 		/* float P_plus[4]; */
-		{0.4, 160.0, 160.0, 641082.323},
+		{0.4, 160.0, 160.0, 213.323},
 		/* x plus current state vector 2x1: value, speed */
 		/* float x_plus[2]; */
 		{1.0, 1.0},
 };
+
+// kalman_filter_data_s kalman_data =
+// 	{
+// 		/* Transition matrix: 2x2 */
+// 		/* float Phi_matrix[4]; */
+// 		{1.0, 0.25e-3, 0.0, 1.0},
+// 		/* Q covariance plant noise matrix: 2x2 */
+// 		/* float Q_matrix[4]; */
+// 		{0.1, 0, 0, 500},
+// 		/* Sensitivity matrix: 1X2 */
+// 		/* float H_matrix[2]; */
+// 		{1.0, 0.0},
+// 		/* Observation noise: R covariance matrix 1x1 */
+// 		/* float R_matrix; */
+// 		200,
+// 		/* P plus current covariance matrix 2x2: estimate error */
+// 		/* float P_plus[4]; */
+// 		{0.4, 160.0, 160.0, 641082.323},
+// 		/* x plus current state vector 2x1: value, speed */
+// 		/* float x_plus[2]; */
+// 		{1.0, 1.0},
+// };
 /*
 Scalar Kalman Filter
 Input
